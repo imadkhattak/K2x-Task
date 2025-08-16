@@ -37,8 +37,8 @@ This project is a web-based application that allows users to ask natural languag
 
 ### 1. Clone the Repository
 ```sh
-git clone <your-repo-url>
-cd <project-folder>
+git clone https://github.com/imadkhattak/K2x-Task.git
+cd K2x-Task
 ```
 
 ### 2. Create & Activate Virtual Environment

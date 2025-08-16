@@ -1,0 +1,15 @@
+=== DATABASE SCHEMA ===
+Database: orgs_db
+
+TABLE: alembic_version
+--------------------------------------------------
+version_num          varchar(32)     NO    PRI       
+
+TABLE: organizations
+--------------------------------------------------
+id                   int             NO    PRI       
+name                 varchar(255)    YES             
+industry             varchar(255)    YES             
+location             varchar(255)    YES             
+description          text            YES             
+

@@ -93,5 +93,4 @@ MIT License
 ## Author
 - Imad khattak
 
----
-Feel free to customize this README for your deployment or add more details as needed.
+

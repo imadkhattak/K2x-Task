@@ -24,8 +24,8 @@ This project is a web-based application that allows users to ask natural languag
 │   ├── sql_query_generator.py # LLM prompt & SQL generation
 │   ├── execute_sql_query.py   # Executes SQL and handles caching
 │   ├── memory.py           # In-memory cache logic
-│   └── database/
-│       └── schema.txt      # Saved DB schema
+│   └── schema.txt      # Saved DB schema
+
 ├── templates/
 │   └── index.html          # Main web UI
 ├── static/                 # JS/CSS assets

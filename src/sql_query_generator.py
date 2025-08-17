@@ -1,14 +1,14 @@
+import os
 import ollama
-from src.get_db_schema import save_schema_to_file
 
-def get_sql_prompt(user_question: str, schema: str) -> str:
+def get_schema_path():
+    return os.path.join(os.path.dirname(__file__), "database_schema.txt")
 
-    save_schema_to_file()
-
-    with open('src/database/schema.txt', 'r') as f:
+def get_sql_prompt(user_question: str) -> str:
+    schema_path = get_schema_path()
+    with open(schema_path, "r", encoding="utf-8") as f:
         schema = f.read()
 
-        """Generate prompt for LLM with schema from file"""
     return f"""Generate a MySQL SELECT query based on this database schema:
 {schema}
 
@@ -24,12 +24,8 @@ Rules:
 Question: "{user_question}"
 SQL:"""
 
-
 def generate_sql(question: str) -> str:
-    save_schema_to_file()  
-    with open('src/database/schema.txt', 'r') as f:
-        schema = f.read()
-    prompt = get_sql_prompt(question, schema)  
+    prompt = get_sql_prompt(question)
     response = ollama.generate(
         model="llama3:8b",
         prompt=prompt,

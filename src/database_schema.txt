@@ -1,0 +1,10 @@
+Table: alembic_version
+  version_num - varchar(32)
+
+Table: organizations
+  id - int
+  name - varchar(255)
+  industry - varchar(255)
+  location - varchar(255)
+  description - text
+

@@ -1,3 +1,4 @@
+import os
 import mysql.connector
 from src.db_config import DB_CONFIG
 
@@ -12,30 +13,27 @@ def save_schema_to_file():
         )
         cursor = conn.cursor()
 
-        with open('src/database/schema.txt', 'w') as f:
+        # ✅ Ensure schema file is saved inside src/database/
+        schema_path = os.path.join(os.path.dirname(__file__), "database_schema.txt")
+
+        with open(schema_path, "w", encoding="utf-8") as f:
             cursor.execute("SHOW TABLES")
             tables = cursor.fetchall()
 
-            f.write("=== DATABASE SCHEMA ===\n")
-            f.write(f"Database: {DB_CONFIG['database']}\n\n")
-
             for table in tables:
                 table_name = table[0]
-                f.write(f"TABLE: {table_name}\n")
-                f.write("-" * 50 + "\n")
+                f.write(f"Table: {table_name}\n")
 
-                cursor.execute(f"DESCRIBE {table_name}")
+                cursor.execute(f"SHOW COLUMNS FROM {table_name}")
                 columns = cursor.fetchall()
 
-                for col in columns:
-                    f.write(f"{col[0]:<20} {col[1]:<15} {col[2]:<5} {col[3]:<10}\n")
-                
+                for column in columns:
+                    f.write(f"  {column[0]} - {column[1]}\n")
                 f.write("\n")
 
-    except mysql.connector.Error as err:
-        print(f"Error: {err}")
-    finally:
-        if conn.is_connected():
-            cursor.close()
-            conn.close()
+        cursor.close()
+        conn.close()
+        print(f"✅ Schema saved to {schema_path}")
 
+    except Exception as e:
+        print(f"❌ Error saving schema: {e}")
